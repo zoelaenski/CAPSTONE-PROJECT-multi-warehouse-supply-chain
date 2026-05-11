@@ -5,6 +5,8 @@ const morgan = require('morgan');
 const errorMiddleware = require('./middlewares/error.middleware');
 
 const authRoutes = require('./routes/auth.routes');
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./utils/swagger");
 
 const app = express();
 
@@ -26,6 +28,9 @@ app.get('/', (req, res) => {
 
 // Routes
 app.use('/api/auth', authRoutes);
+
+// Swagger
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // 404 handler
 app.use((req, res) => {
