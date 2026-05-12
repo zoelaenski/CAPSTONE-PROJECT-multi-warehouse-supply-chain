@@ -26,9 +26,33 @@ router.use(protect);
 // ── Transfer CRUD ─────────────────────────────────────────────────────────────
 
 /**
- * @route   POST /transfers
- * @desc    Request a new warehouse transfer
- * @access  Authenticated (any role)
+ * @swagger
+ * /api/transfers:
+ *   post:
+ *     summary: Request a new warehouse transfer
+ *     tags: [Transfers]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               fromWarehouse:
+ *                 type: string
+ *               toWarehouse:
+ *                 type: string
+ *               product:
+ *                 type: string
+ *               quantity:
+ *                 type: number
+ *     responses:
+ *       201:
+ *         description: Transfer request created successfully
+ *       400:
+ *         description: Invalid request
  */
 router.post("/", requestTransfer);
 
