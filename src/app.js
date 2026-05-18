@@ -5,6 +5,8 @@ const morgan = require('morgan');
 const errorMiddleware = require('./middlewares/error.middleware');
 
 const authRoutes = require('./routes/auth.routes');
+const categoryRoutes = require('./routes/category.routes');
+const productRoutes = require('./routes/product.routes');
 
 const app = express();
 
@@ -26,6 +28,8 @@ app.get('/', (req, res) => {
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/products', productRoutes);
 
 // 404 handler
 app.use((req, res) => {
