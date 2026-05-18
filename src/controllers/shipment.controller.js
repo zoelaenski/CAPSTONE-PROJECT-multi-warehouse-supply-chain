@@ -1,10 +1,6 @@
 const shipment = require("../models/shipment.model"); //do not need this.
 const service = require("../services/shipment.service");
 
-const express = require("express");
-const app = express();
-app.use(express.json());
-
 exports.createShipment = async (req, res) => {
   service.addShipment(req, res);
 };

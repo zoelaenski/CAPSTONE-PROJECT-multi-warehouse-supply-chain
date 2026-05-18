@@ -1,9 +1,5 @@
 const shipment = require("../models/shipment.model");
 
-const express = require("express");
-const app = express();
-app.use(express.json());
-
 exports.addShipment = async (req, res) => {
   const { fromWarehouse, destination, item, carrier } = req.body;
 
