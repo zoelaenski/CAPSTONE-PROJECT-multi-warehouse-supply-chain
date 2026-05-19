@@ -45,30 +45,14 @@ exports.updateFailedStatus = async (req) => {
   return isFound;
 };
 
-exports.fetchDispatched = async (req, res) => {
+exports.fetchDispatched = async () => {
   const dispatchedShipments = await shipment.find({ status: "dispatched" });
   return dispatchedShipments;
 };
 
-exports.fetchDelivered = async (req, res) => {
-  try {
-    const deliveredShipments = await shipment.find({ status: "delivered" });
-    let deliveredShipmentCount = deliveredShipments.length;
-    if (deliveredShipmentCount == 0) {
-      return res.status(400).json({
-        success: false,
-        message: "no shipments have been delivered",
-        data: deliveredShipments,
-      });
-    }
-    return res.status(200).json({
-      success: true,
-      message: "The shipments that have been delivered are;",
-      data: deliveredShipments,
-    });
-  } catch (err) {
-    console.error(err.message);
-  }
+exports.fetchDelivered = async () => {
+  const deliveredShipments = await shipment.find({ status: "delivered" });
+  return deliveredShipments;
 };
 
 exports.fetchFailed = async (req, res) => {
