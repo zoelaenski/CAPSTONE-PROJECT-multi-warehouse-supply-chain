@@ -106,7 +106,22 @@ exports.deliveredShipment = async (req, res) => {
 };
 
 exports.failedShipment = async (req, res) => {
-  service.updateFailedStatus(req, res);
+  try {
+    const isFound = shipmentService.updateFailedStatus(req);
+    if (isFound) {
+      return res.status(200).json({
+        success: true,
+        message: "updated the shipment's status to dispatched",
+      });
+    }
+    return res.status(400).json({
+      success: false,
+      message:
+        "couldn't update the shipment's status because the shipment wasn't found.",
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
 };
 
 exports.dispatched = async (req, res) => {
