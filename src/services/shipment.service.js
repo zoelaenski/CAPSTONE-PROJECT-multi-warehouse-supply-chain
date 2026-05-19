@@ -30,7 +30,7 @@ exports.updateDeliveredStatus = async (req) => {
     { _id: req.params.id },
     {
       status: "delivered",
-      dispatchedAt: new Date(),
+      deliveredAt: new Date(),
     },
   );
   return isFound;
