@@ -28,27 +28,43 @@ exports.createShipment = async (req, res) => {
 exports.getShipments = async (req, res) => {
   try {
     const shipments = shipmentService.fetchShipment();
-      let shipmentsCount = shipments.length;
-      if (shipmentsCount > 0) {
-        console.log(shipments);
-        return res.status(200).json({
-          success: true,
-          message: "shipments successfully fetched.",
-          data: shipments,
-        });
-      }
-      return res.status(400).json({
-        success: false,
-        message: "No shipments found.",
+    let shipmentsCount = shipments.length;
+    if (shipmentsCount > 0) {
+      console.log(shipments);
+      return res.status(200).json({
+        success: true,
+        message: "shipments successfully fetched.",
         data: shipments,
       });
-    } catch (err) {
-      console.error(err.message);
+    }
+    return res.status(400).json({
+      success: false,
+      message: "No shipments found.",
+      data: shipments,
+    });
+  } catch (err) {
+    console.error(err.message);
   }
 };
 
 exports.getShipmentById = async (req, res) => {
-  service.fetchShipmentById(req, res);
+  try {
+    const shxpment = shipmentService.fetchShipmentById(req);
+    if (shxpment) {
+      return res.status(200).json({
+        success: true,
+        message: "The shipment with this id is;",
+        data: shxpment,
+      });
+    }
+    return res.status(400).json({
+      success: false,
+      message: "This shipment isn't in the database.",
+      data: shxpment,
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
 };
 
 exports.dispatchedShipment = async (req, res) => {

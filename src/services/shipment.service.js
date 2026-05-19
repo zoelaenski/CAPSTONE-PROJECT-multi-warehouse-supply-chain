@@ -9,24 +9,9 @@ exports.fetchShipment = async (req, res) => {
   return shipments;
 };
 
-exports.fetchShipmentById = async (req, res) => {
-  try {
-    const shxpment = await shipment.findOne({ _id: req.params.id });
-    if (shxpment) {
-      return res.status(200).json({
-        success: true,
-        message: "The shipment with this id is;",
-        data: shxpment,
-      });
-    }
-    return res.status(400).json({
-      success: false,
-      message: "This shipment isn't in the database.",
-      data: shxpment,
-    });
-  } catch (err) {
-    console.error(err.message);
-  }
+exports.fetchShipmentById = async (req) => {
+  const shxpment = await shipment.findOne({ _id: req.params.id });
+  return shxpment;
 };
 
 exports.updatedDispatchedStatus = async (req, res) => {
