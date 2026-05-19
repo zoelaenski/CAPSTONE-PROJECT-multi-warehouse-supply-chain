@@ -13,7 +13,7 @@ exports.createShipment = async (req, res) => {
         data: req.body,
       });
     }
-    const newShipment = shipmentService.addShipment(req.body);
+    const newShipment = await shipmentService.addShipment(req.body);
 
     return res.status(201).json({
       success: true,
@@ -27,7 +27,7 @@ exports.createShipment = async (req, res) => {
 
 exports.getShipments = async (req, res) => {
   try {
-    const shipments = shipmentService.fetchShipment();
+    const shipments = await shipmentService.fetchShipment();
     let shipmentsCount = shipments.length;
     if (shipmentsCount > 0) {
       console.log(shipments);
@@ -49,7 +49,7 @@ exports.getShipments = async (req, res) => {
 
 exports.getShipmentById = async (req, res) => {
   try {
-    const shxpment = shipmentService.fetchShipmentById(req);
+    const shxpment = await shipmentService.fetchShipmentById(req);
     if (shxpment) {
       return res.status(200).json({
         success: true,
@@ -69,7 +69,7 @@ exports.getShipmentById = async (req, res) => {
 
 exports.dispatchedShipment = async (req, res) => {
   try {
-    const isFound = shipmentService.updatedDispatchedStatus(req);
+    const isFound = await shipmentService.updatedDispatchedStatus(req);
     if (isFound) {
       return res.status(200).json({
         success: true,
@@ -88,7 +88,7 @@ exports.dispatchedShipment = async (req, res) => {
 
 exports.deliveredShipment = async (req, res) => {
   try {
-    const isFound = service.updateDeliveredStatus(req);
+    const isFound = await service.updateDeliveredStatus(req);
     if (isFound) {
       return res.status(200).json({
         success: true,
@@ -107,7 +107,7 @@ exports.deliveredShipment = async (req, res) => {
 
 exports.failedShipment = async (req, res) => {
   try {
-    const isFound = shipmentService.updateFailedStatus(req);
+    const isFound = await shipmentService.updateFailedStatus(req);
     if (isFound) {
       return res.status(200).json({
         success: true,
@@ -126,7 +126,7 @@ exports.failedShipment = async (req, res) => {
 
 exports.dispatched = async (req, res) => {
   try {
-    const dispatchedShipments = shipmentService.fetchDispatched();
+    const dispatchedShipments = await shipmentService.fetchDispatched();
     let dispatchedShipmentsCount = dispatchedShipments.length;
     if (dispatchedShipmentsCount == 0) {
       return res.status(400).json({
@@ -147,7 +147,7 @@ exports.dispatched = async (req, res) => {
 
 exports.delivered = async (req, res) => {
   try {
-    const deliveredShipments = shipmentService.fetchDelivered();
+    const deliveredShipments = await shipmentService.fetchDelivered();
     let deliveredShipmentCount = deliveredShipments.length;
     if (deliveredShipmentCount == 0) {
       return res.status(400).json({
@@ -168,7 +168,7 @@ exports.delivered = async (req, res) => {
 
 exports.failed = async (req, res) => {
   try {
-    const failedShipments = shipmentService.fetchFailed();
+    const failedShipments = await shipmentService.fetchFailed();
     let failedShipmentCount = failedShipments.length;
     if (failedShipmentCount == 0) {
       return res.status(400).json({
@@ -190,7 +190,7 @@ exports.failed = async (req, res) => {
 exports.fromThisWarehouse = async (req, res) => {
   try {
     const shipmentsFromWarehouse =
-      shipmentService.fetchShipmentsByWarehouse(req);
+      await shipmentService.fetchShipmentsByWarehouse(req);
     let size = shipmentsFromWarehouse.length;
     if (size == 0) {
       return res.status(400).json({
