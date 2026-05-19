@@ -8,7 +8,9 @@ const shipmentSchema = new mongoose.Schema(
       required: true,
     }, //make this a string now for simplification purposes.
     destination: { type: String, required: true },
-    item: [{ type: String, required: true }], //item should be an array of products as well as the quantity. Of course it is required. You do not want to ship nothing.
+    item: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "product", required: true },
+    ], //item should be an array of products as well as the quantity. Of course it is required. You do not want to ship nothing.
     carrier: { type: String, required: true },
     status: {
       type: String,
