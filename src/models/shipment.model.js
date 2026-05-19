@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 
 const shipmentSchema = new mongoose.Schema(
   {
+    trackingNumber: {
+      type: String,
+      unique: true,
+      index: true,
+    },
     fromWarehouse: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "warehouse",
@@ -23,5 +28,19 @@ const shipmentSchema = new mongoose.Schema(
   },
   { timestamps: true },
 );
+
+shipmentSchema.pre("save", async function (next) {
+  if (!this.trackingNumber) {
+    this.trackingNumber = await generateTrackingNumber();
+  }
+  next();
+});
+
+async function generateTrackingNumber() {
+  const prefix = "TRK";
+  const timestamp = Date.now().toString(36).toUpperCase(); // base-36 timestamp
+  const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+  return `${prefix}-${timestamp}-${random}`;
+}
 
 module.exports = mongoose.model("Shipment", shipmentSchema);
