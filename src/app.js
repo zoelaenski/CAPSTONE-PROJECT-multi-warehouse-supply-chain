@@ -22,10 +22,33 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const app = express();
+
+// Security middleware
+app.use(helmet());
+app.use(cors());
+
+// Request logging
+app.use(morgan("dev"));
+
+// Body parser
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Health check
+app.get("/", (req, res) => {
+  res.json({ message: "Multi-Warehouse Supply Chain API is running" });
+});
+
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/products", productRoutes);
 app.use("/api/shipments", shipmentRoute);
 
-app.listen(process.env.PORT, () => {
-  console.log(`the current port is ${process.env.PORT}`);
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ success: false, message: "Route not found" });
 });
 
 // Routes
