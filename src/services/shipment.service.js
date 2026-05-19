@@ -55,25 +55,9 @@ exports.fetchDelivered = async () => {
   return deliveredShipments;
 };
 
-exports.fetchFailed = async (req, res) => {
-  try {
-    const failedShipments = await shipment.find({ status: "failed" });
-    let failedShipmentCount = failedShipments.length;
-    if (failedShipmentCount == 0) {
-      return res.status(400).json({
-        success: false,
-        message: "no shipments have failed",
-        data: failedShipments,
-      });
-    }
-    return res.status(200).json({
-      success: true,
-      message: "The shipments that have failed are;",
-      data: failedShipments,
-    });
-  } catch (err) {
-    console.error(err.message);
-  }
+exports.fetchFailed = async () => {
+  const failedShipments = await shipment.find({ status: "failed" });
+  return failedShipments;
 };
 
 exports.fetchShipmentsByWarehouse = async (req, res) => {

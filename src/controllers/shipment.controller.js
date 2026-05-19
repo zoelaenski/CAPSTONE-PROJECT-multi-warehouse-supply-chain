@@ -167,7 +167,24 @@ exports.delivered = async (req, res) => {
 };
 
 exports.failed = async (req, res) => {
-  service.fetchFailed(req, res);
+  try {
+    const failedShipments = shipmentService.fetchFailed();
+    let failedShipmentCount = failedShipments.length;
+    if (failedShipmentCount == 0) {
+      return res.status(400).json({
+        success: false,
+        message: "no shipments have failed",
+        data: failedShipments,
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "The shipments that have failed are;",
+      data: failedShipments,
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
 };
 
 exports.fromThisWarehouse = async (req, res) => {
