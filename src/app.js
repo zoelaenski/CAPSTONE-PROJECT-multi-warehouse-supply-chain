@@ -7,20 +7,7 @@ const errorMiddleware = require("./middlewares/error.middleware");
 const authRoutes = require("./routes/auth.routes");
 const categoryRoutes = require("./routes/category.routes");
 const productRoutes = require("./routes/product.routes");
-const shipmentRoutes = require("./routes/shipmentRoute");
-
-const app = express();
-
-// Security middleware
-app.use(helmet());
-app.use(cors());
-
-// Request logging
-app.use(morgan("dev"));
-
-// Body parser
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+const shipmentRoutes = require("./routes/shipment.routes");
 
 const app = express();
 
@@ -38,17 +25,6 @@ app.use(express.urlencoded({ extended: true }));
 // Health check
 app.get("/", (req, res) => {
   res.json({ message: "Multi-Warehouse Supply Chain API is running" });
-});
-
-// Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/categories", categoryRoutes);
-app.use("/api/products", productRoutes);
-app.use("/api/shipments", shipmentRoute);
-
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({ success: false, message: "Route not found" });
 });
 
 // Routes
