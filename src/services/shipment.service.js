@@ -7,15 +7,19 @@ exports.addShipment = async (req, res) => {
 
   if (!fromWarehouse || !destination || itemCount < 1 || !carrier) {
     return res.status(400).json({
+      sucess: false,
       message: "fromWarehouse, destination, item and carrier are required",
+      data: req.body,
     });
   }
 
   await shipment.create(req.body);
   console.log(`the shipment ${req.body} has created`);
-  res
-    .status(201)
-    .json({ message: "The shipment has been created", data: req.body });
+  res.status(201).json({
+    success: true,
+    message: "The shipment has been created",
+    data: req.body,
+  });
 };
 
 exports.fetchShipment = async (req, res) => {
@@ -24,9 +28,17 @@ exports.fetchShipment = async (req, res) => {
     let shipmentsCount = shipments.length;
     if (shipmentsCount > 0) {
       console.log(shipments);
-      return res.status(200).json(shipments);
+      return res.status(200).json({
+        success: true,
+        message: "shipments successfully fetched.",
+        data: shipments,
+      });
     }
-    return res.status(400).send("No shipments found.");
+    return res.status(400).json({
+      success: false,
+      message: "No shipments found.",
+      data: shipments,
+    });
   } catch (err) {
     console.error(err.message);
   }
@@ -36,9 +48,17 @@ exports.fetchShipmentById = async (req, res) => {
   try {
     const shxpment = await shipment.findOne({ _id: req.params.id });
     if (shxpment) {
-      return res.status(200).json(shxpment);
+      return res.status(200).json({
+        success: true,
+        message: "The shipment with this id is;",
+        data: shxpment,
+      });
     }
-    return res.status(400).send("This shipment isn't in the database.");
+    return res.status(400).json({
+      success: false,
+      message: "This shipment isn't in the database.",
+      data: shxpment,
+    });
   } catch (err) {
     console.error(err.message);
   }
@@ -54,15 +74,16 @@ exports.updatedDispatchedStatus = async (req, res) => {
       },
     );
     if (isFound) {
-      return res
-        .status(200)
-        .send("updated the shipment's status to dispatched");
+      return res.status(200).json({
+        success: true,
+        message: "updated the shipment's status to dispatched",
+      });
     }
-    return res
-      .status(400)
-      .send(
+    return res.status(400).json({
+      success: false,
+      message:
         "couldn't update the shipment's status because the shipment wasn't found.",
-      );
+    });
   } catch (err) {
     console.error(err.message);
   }
@@ -79,15 +100,16 @@ exports.updateDeliveredStatus = async (req, res) => {
       },
     );
     if (isFound) {
-      return res
-        .status(200)
-        .send("updated the shipment's status to dispatched");
+      return res.status(200).json({
+        success: true,
+        message: "updated the shipment's status to dispatched",
+      });
     }
-    return res
-      .status(400)
-      .send(
+    return res.status(400).json({
+      success: false,
+      message:
         "couldn't update the shipment's status because the shipment wasn't found.",
-      );
+    });
   } catch (err) {
     console.error(err.message);
   }
@@ -100,15 +122,16 @@ exports.updateFailedStatus = async (req, res) => {
       { status: "failed" },
     );
     if (isFound) {
-      return res
-        .status(200)
-        .send("updated the shipment's status to dispatched");
+      return res.status(200).json({
+        success: true,
+        message: "updated the shipment's status to dispatched",
+      });
     }
-    return res
-      .status(400)
-      .send(
+    return res.status(400).json({
+      success: false,
+      message:
         "couldn't update the shipment's status because the shipment wasn't found.",
-      );
+    });
   } catch (err) {
     console.error(err.message);
   }
@@ -119,9 +142,9 @@ exports.fetchDispatched = async (req, res) => {
     const dispatchedShipments = await shipment.find({ status: "dispatched" });
     let dispatchedShipmentsCount = dispatchedShipments.length;
     if (dispatchedShipmentsCount == 0) {
-      return res.status(400).send("no shipments have been dispatched");
+      return res.status(400).json({ success: false, message: "no shipments have been dispatched", data: dispatchedShipments);
     }
-    return res.status(200).json(dispatchedShipments);
+    return res.status(200).json({ success: true, message: "The shipments that have been dispatched are;", data: dispatchedShipments });
   } catch (err) {
     console.error(err.message);
   }
@@ -132,9 +155,9 @@ exports.fetchDelivered = async (req, res) => {
     const deliveredShipments = await shipment.find({ status: "delivered" });
     let deliveredShipmentCount = deliveredShipments.length;
     if (deliveredShipmentCount == 0) {
-      return res.status(400).send("no shipments have been delivered");
+      return res.status(400).json({ success: false, message: "no shipments have been delivered", data: deliveredShipments });
     }
-    return res.status(200).json(deliveredShipments);
+    return res.status(200).json({ success: true, message: "The shipments that have been delivered are;", data: deliveredShipments });
   } catch (err) {
     console.error(err.message);
   }
@@ -145,9 +168,9 @@ exports.fetchFailed = async (req, res) => {
     const failedShipments = await shipment.find({ status: "failed" });
     let failedShipmentCount = failedShipments.length;
     if (failedShipmentCount == 0) {
-      return res.status(400).send("no shipments have failed");
+      return res.status(400).json({success:false, message:"no shipments have failed", data:failedShipments});
     }
-    return res.status(200).json(failedShipments);
+    return res.status(200).json({ success: true, message: "The shipments that have failed are;", data: failedShipments });
   } catch (err) {
     console.error(err.message);
   }
@@ -162,9 +185,9 @@ exports.fetchShipmentsByWarehouse = async (req, res) => {
     console.log(shipmentsFromWarehouse.length);
     let size = shipmentsFromWarehouse.length;
     if (size == 0) {
-      return res.status(400).send("there are no shipments from this warehouse");
+      return res.status(400).json({ success: false, message: "there are no shipments from this warehouse", data: shipmentsFromWarehouse });
     }
-    return res.status(200).json(shipmentsFromWarehouse);
+    return res.status(200).json({success:true, message:"The shipments from this warehouse are;",data:shipmentsFromWarehouse});
   } catch (err) {
     console.error(err.message);
   }
