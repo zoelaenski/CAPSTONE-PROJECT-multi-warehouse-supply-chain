@@ -25,30 +25,15 @@ exports.updatedDispatchedStatus = async (req) => {
   return isFound;
 };
 
-exports.updateDeliveredStatus = async (req, res) => {
-  try {
-    const isFound = await shipment.findOneAndUpdate(
-      { _id: req.params.id },
-      {
-        status: "delivered",
-        deliveredAt: new Date(),
-        proofOfDelivery: "A note affirming the delivery of this package.",
-      },
-    );
-    if (isFound) {
-      return res.status(200).json({
-        success: true,
-        message: "updated the shipment's status to dispatched",
-      });
-    }
-    return res.status(400).json({
-      success: false,
-      message:
-        "couldn't update the shipment's status because the shipment wasn't found.",
-    });
-  } catch (err) {
-    console.error(err.message);
-  }
+exports.updateDeliveredStatus = async (req) => {
+  const isFound = await shipment.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      status: "delivered",
+      dispatchedAt: new Date(),
+    },
+  );
+  return isFound;
 };
 
 exports.updateFailedStatus = async (req, res) => {
