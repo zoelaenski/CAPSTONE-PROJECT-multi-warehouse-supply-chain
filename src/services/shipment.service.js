@@ -60,27 +60,10 @@ exports.fetchFailed = async () => {
   return failedShipments;
 };
 
-exports.fetchShipmentsByWarehouse = async (req, res) => {
-  try {
-    let warehouseId = req.params.warehouseId;
-    const shipmentsFromWarehouse = await shipment.find({
-      fromWarehouse: warehouseId,
-    });
-    console.log(shipmentsFromWarehouse.length);
-    let size = shipmentsFromWarehouse.length;
-    if (size == 0) {
-      return res.status(400).json({
-        success: false,
-        message: "there are no shipments from this warehouse",
-        data: shipmentsFromWarehouse,
-      });
-    }
-    return res.status(200).json({
-      success: true,
-      message: "The shipments from this warehouse are;",
-      data: shipmentsFromWarehouse,
-    });
-  } catch (err) {
-    console.error(err.message);
-  }
+exports.fetchShipmentsByWarehouse = async (req) => {
+  let warehouseId = req.params.warehouseId;
+  const shipmentsFromWarehouse = await shipment.find({
+    fromWarehouse: warehouseId,
+  });
+  return shipmentsFromWarehouse;
 };

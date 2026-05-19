@@ -188,5 +188,23 @@ exports.failed = async (req, res) => {
 };
 
 exports.fromThisWarehouse = async (req, res) => {
-  service.fetchShipmentsByWarehouse(req, res);
+  try {
+    const shipmentsFromWarehouse =
+      shipmentService.fetchShipmentsByWarehouse(req);
+    let size = shipmentsFromWarehouse.length;
+    if (size == 0) {
+      return res.status(400).json({
+        success: false,
+        message: "there are no shipments from this warehouse",
+        data: shipmentsFromWarehouse,
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "The shipments from this warehouse are;",
+      data: shipmentsFromWarehouse,
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
 };
