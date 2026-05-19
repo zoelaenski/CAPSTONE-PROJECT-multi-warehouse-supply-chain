@@ -26,7 +26,25 @@ exports.createShipment = async (req, res) => {
 };
 
 exports.getShipments = async (req, res) => {
-  service.fetchShipment(req, res);
+  try {
+    const shipments = shipmentService.fetchShipment();
+      let shipmentsCount = shipments.length;
+      if (shipmentsCount > 0) {
+        console.log(shipments);
+        return res.status(200).json({
+          success: true,
+          message: "shipments successfully fetched.",
+          data: shipments,
+        });
+      }
+      return res.status(400).json({
+        success: false,
+        message: "No shipments found.",
+        data: shipments,
+      });
+    } catch (err) {
+      console.error(err.message);
+  }
 };
 
 exports.getShipmentById = async (req, res) => {
