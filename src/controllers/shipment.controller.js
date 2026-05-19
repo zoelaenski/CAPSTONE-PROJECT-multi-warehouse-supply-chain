@@ -125,7 +125,24 @@ exports.failedShipment = async (req, res) => {
 };
 
 exports.dispatched = async (req, res) => {
-  service.fetchDispatched(req, res);
+  try {
+    const dispatchedShipments = shipmentService.fetchDispatched(req);
+    let dispatchedShipmentsCount = dispatchedShipments.length;
+    if (dispatchedShipmentsCount == 0) {
+      return res.status(400).json({
+        success: false,
+        message: "no shipments have been dispatched",
+        data: dispatchedShipments,
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "The shipments that have been dispatched are;",
+      data: dispatchedShipments,
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
 };
 
 exports.delivered = async (req, res) => {
