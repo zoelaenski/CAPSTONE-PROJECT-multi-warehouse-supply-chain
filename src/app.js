@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/products", productRoutes);
-app.use("/api/shipments", shipmentRoutes);
+app.use("/api", shipmentRoutes);
 
 // 404 handler
 app.use((req, res) => {
