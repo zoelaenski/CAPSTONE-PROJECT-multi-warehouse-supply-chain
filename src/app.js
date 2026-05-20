@@ -7,7 +7,7 @@ const errorMiddleware = require('./middlewares/error.middleware');
 const authRoutes = require('./routes/auth.routes');
 const categoryRoutes = require('./routes/category.routes');
 const productRoutes = require('./routes/product.routes');
-const supplierRoutes = require('./routes/supplier.routes');
+//const supplierRoutes = require('./routes/supplier.routes');
 
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./utils/swagger");
@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/products', productRoutes);
-app.use('/api/suppliers', supplierRoutes);
+//app.use('/api/suppliers', supplierRoutes);
 
 // Swagger
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
