@@ -5,15 +5,14 @@ const morgan = require('morgan');
 const errorMiddleware = require('./middlewares/error.middleware');
 
 const authRoutes = require('./routes/auth.routes');
-<<<<<<< HEAD
-const swaggerUi = require("swagger-ui-express");
-const swaggerSpec = require("./utils/swagger");
-=======
 const categoryRoutes = require('./routes/category.routes');
 const productRoutes = require('./routes/product.routes');
 const supplierRoutes = require('./routes/supplier.routes');
 
->>>>>>> dev
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./utils/swagger");
+
+
 
 const app = express();
 
