@@ -9,7 +9,7 @@ const {
     shipPurchaseOrder,
     receivePurchaseOrder,
     cancelPurchaseOrder
-} = require('../controllers/purchaseOrderController');
+} = require('../controllers/purchaseOrder.controller');
 
 const { protect } = require('../middlewares/auth.middleware');
 const { authorise } = require('../middlewares/role.middleware')
