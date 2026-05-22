@@ -18,6 +18,11 @@ const { authorise } = require('../middlewares/role.middleware');
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - name
+ *               - sku
+ *               - price
+ *               - category
  *             properties:
  *               name:
  *                 type: string
@@ -32,7 +37,13 @@ const { authorise } = require('../middlewares/role.middleware');
  *         description: Product created successfully
  *       401:
  *         description: Unauthorized
- *
+ *       403:
+ *         description: Forbidden
+ */
+router.post('/', protect, authorise('Admin'), productController.createProduct);
+/**
+ * @swagger
+ * /api/products:
  *   get:
  *     summary: Get all products
  *     tags: [Products]
@@ -41,8 +52,9 @@ const { authorise } = require('../middlewares/role.middleware');
  *     responses:
  *       200:
  *         description: Products retrieved successfully
+ *       401:
+ *         description: Unauthorized
  */
-router.post('/', protect, authorise('Admin'), productController.createProduct);
 router.get('/', protect, productController.getAllProducts);
 /**
  * @swagger

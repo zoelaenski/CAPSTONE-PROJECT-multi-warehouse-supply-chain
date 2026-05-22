@@ -23,6 +23,10 @@ const {authorise} = require('../middlewares/role.middleware');
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - name
+ *               - location
+ *               - capacity
  *             properties:
  *               name:
  *                 type: string
@@ -98,11 +102,28 @@ router.get ('/:id', protect, warehouseController.getWarehouseById);
  *         required: true
  *         schema:
  *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               location:
+ *                 type: string
+ *               capacity:
+ *                 type: number
  *     responses:
  *       200:
  *         description: Warehouse updated successfully
+ *       401:
+ *         description: Unauthorized
  *       403:
  *         description: Admin access required
+ *       404:
+ *         description: Warehouse not found
  */
 router.put ('/:id', protect, authorise('Admin'), warehouseController.updateWarehouse);
 
@@ -125,8 +146,12 @@ router.put ('/:id', protect, authorise('Admin'), warehouseController.updateWareh
  *     responses:
  *       200:
  *         description: Warehouse deactivated successfully
+ *       401:
+ *         description: Unauthorized
  *       403:
  *         description: Admin access required
+ *       404:
+ *         description: Warehouse not found
  */
 router.delete ('/:id', protect, authorise('Admin'), warehouseController.deactivateWarehouse);
 

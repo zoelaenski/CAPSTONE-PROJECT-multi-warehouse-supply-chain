@@ -17,6 +17,8 @@ const { authorise } = require('../middlewares/role.middleware');
  *         description: Inventory summary retrieved successfully
  *       401:
  *         description: Unauthorized
+ *       403:
+ *         description: Forbidden (Admin only)
  */
 router.get('/inventory-summary', protect, authorise('Admin'), reportController.getInventorySummary);
 /**
@@ -30,6 +32,10 @@ router.get('/inventory-summary', protect, authorise('Admin'), reportController.g
  *     responses:
  *       200:
  *         description: Low stock report retrieved successfully
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden (Admin/Staff only)
  */
 router.get('/low-stock', protect, authorise('Admin', 'Staff'), reportController.getLowStockReport);
 /**
@@ -43,6 +49,10 @@ router.get('/low-stock', protect, authorise('Admin', 'Staff'), reportController.
  *     responses:
  *       200:
  *         description: Purchase order report retrieved successfully
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden (Admin only)
  */
 router.get('/purchase-orders', protect, authorise('Admin'), reportController.getPurchaseOrderSummary);
 /**
@@ -56,6 +66,10 @@ router.get('/purchase-orders', protect, authorise('Admin'), reportController.get
  *     responses:
  *       200:
  *         description: Transfer report retrieved successfully
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden (Admin only)
  */
 router.get('/transfers', protect, authorise('Admin'), reportController.getTransferSummary);
 /**
@@ -69,6 +83,10 @@ router.get('/transfers', protect, authorise('Admin'), reportController.getTransf
  *     responses:
  *       200:
  *         description: Supplier performance report retrieved successfully
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden (Admin only)
  */
 router.get('/supplier-performance', protect, authorise('Admin'), reportController.getSupplierPerformance);
 

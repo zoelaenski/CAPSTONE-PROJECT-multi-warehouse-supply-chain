@@ -28,7 +28,13 @@ const { authorise } = require('../middlewares/role.middleware');
  *         description: Category created successfully
  *       401:
  *         description: Unauthorized
- *
+ *       403:
+ *         description: Forbidden
+ */
+router.post('/', protect, authorise('Admin'), categoryController.createCategory);
+/**
+ * @swagger
+ * /api/categories:
  *   get:
  *     summary: Get all categories
  *     tags: [Categories]
@@ -36,10 +42,10 @@ const { authorise } = require('../middlewares/role.middleware');
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: List of categories retrieved successfully
+ *         description: Categories retrieved successfully
+ *       401:
+ *         description: Unauthorized
  */
-router.post('/', protect, authorise('Admin'), categoryController.createCategory);
-
 router.get('/', protect, categoryController.getAllCategories);
 /**
  * @swagger
