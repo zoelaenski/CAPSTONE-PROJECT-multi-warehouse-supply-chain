@@ -1,5 +1,5 @@
 const Warehouse = require('../models/warehouse.model');
-// const Inventory = require('../models/inventory.model'); // needed for capacity calc
+const Inventory = require('../models/inventory.model'); // needed for capacity calc
 
 const createWarehouse = async (data) => {
     const warehouse = new Warehouse(data);
@@ -30,13 +30,12 @@ const deactivateWarehouse = async (id) => {
 };
 
 const calculateUsedCapacity = async (warehouseId) => {
-    // Uncomment when your team's Inventory model is ready:
-    // const result = await Inventory.aggregate([
-    //   { $match: { warehouse: warehouseId } },
-    //   { $group: { _id: null, total: { $sum: '$quantity' } } },
-    // ]);
-    // const used = result[0]?.total ?? 0;
-    // return await updateWarehouse(warehouseId, { 'capacity.used': used });
+    const result = await Inventory.aggregate([
+        { $match: { warehouse: warehouseId } },
+        { $group: { _id: null, total: { $sum: '$quantityInStock' } } },
+    ]);
+    const used = result[0]?.total ?? 0;
+    return await updateWarehouse(warehouseId, { 'capacity.used': used });
 };
 
 module.exports = {
