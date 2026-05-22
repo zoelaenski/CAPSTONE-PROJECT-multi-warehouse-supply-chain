@@ -15,6 +15,9 @@ const warehouseRoutes = require('./routes/warehouse.routes');
 const reportRoutes = require('./routes/report.routes');
 const shipmentRoutes = require('./routes/shipment.routes');
 
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./utils/swagger");
+
 const app = express();
 
 app.use(helmet());
@@ -37,6 +40,9 @@ app.use('/api/purchase-orders', purchaseOrderRoutes);
 app.use('/api/warehouses', warehouseRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/shipments', shipmentRoutes);
+
+// Swagger
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use((req, res) => {
   res.status(404).json({ success: false, message: 'Route not found' });
