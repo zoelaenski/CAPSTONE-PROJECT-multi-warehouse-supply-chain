@@ -125,6 +125,23 @@ To access protected endpoints in Swagger:
 Bearer your_token
 ```
 
+
 ## Contributors
 
-Backend Development Team – Group 20
+Backend Development Team – Group 20 | TS Academy – Phoenix Cohort
+
+| Name | Email | Module |
+
+| Zoe Laenski (Team Lead) | abigailoluchi532@gmail.com | Project Setup, Authentication, Products & Categories, Inventory, Reports & Analytics |
+| Odum Tobe David | odumtobe@gmail.com | Inventory |
+| Uka Patience Amarachi | ukapatience7@gmail.com | Warehouse Transfers Controller & Routes |
+| Adeniyi Elizabeth Adetutu | aadetutu413@gmail.com | Warehouse Model & Service |
+| Abdulqawiyy Bolaji Yusuf | yusufabdul239@gmail.com | Warehouse Controller & Routes |
+| Efih Joshua | efihjoshua17@gmail.com | Shipments & Deliveries |
+| Olayinka Adedapo Abioye | abioyeolayinka0@gmail.com | Purchase Orders |
+| Adewemimo Adefunmbi Amarachi | adefunmbiadewemimo@gmail.com | Warehouse Transfers Model & Service |
+| Don Fortunate | Donfortunet.df@gmail.com | Postman Documentation |
+| Rasheed Opeyemi Toheeb | rasheedopeyemi875@gmail.com | Products & Categories |
+| Ikogba Daniel | ikogbdanielson@gmail.com | Documentation, Swagger UI, README, .env.example |
+| Goodness O. | goziohu@gmail.com | Supplier Controller & Service |
+| Udo Ikechukwu | kingsleyiyke15@gmail.com | Warehouse Service |
