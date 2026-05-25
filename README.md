@@ -132,7 +132,7 @@ Backend Development Team – Group 20 | TS Academy – Phoenix Cohort
 
 | Name | Email | Module |
 
-| Zoe Laenski (Team Lead) | abigailoluchi532@gmail.com | Project Setup, Authentication, Products & Categories, Inventory, Reports & Analytics |
+| Abigail Zoe Francis (Team Lead) | abigailoluchi532@gmail.com | Project Setup, Authentication, Products & Categories, Inventory, Reports & Analytics |
 | Odum Tobe David | odumtobe@gmail.com | Inventory |
 | Uka Patience Amarachi | ukapatience7@gmail.com | Warehouse Transfers Controller & Routes |
 | Adeniyi Elizabeth Adetutu | aadetutu413@gmail.com | Warehouse Model & Service |
